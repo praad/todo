@@ -1,0 +1,44 @@
+{
+    "name": "Simple todo list",
+    "type": "project",
+    "description": "Simple Symfony 4 console component based todo app.",
+    "keywords": ["todo", "Symfony 4", "Console"],
+    "homepage": "https://adamprancz.com",
+    "authors": [
+        {
+            "name": "Adam Prancz",
+            "email": "adam.prancz@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/dotenv": "^4.1",
+        "symfony/console": "^4.1",
+        "katzgrau/klogger": "dev-master"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.1",
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "^2.3",
+        "phpmd/phpmd": "@stable"
+    },
+    "suggest": {
+        "katzgrau/klogger": "dev-master"
+    },
+    "autoload": 
+    {
+        "psr-4": 
+           {
+               "Console\\" : "src/",
+               "Model\\" : "src/Model",
+               "Console\\Command\\" : "src/Command"
+           }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "test/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd" : "cp support/git/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push"
+    }
+}
