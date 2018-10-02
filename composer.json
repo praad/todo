@@ -13,7 +13,8 @@
     "require": {
         "symfony/dotenv": "^4.1",
         "symfony/console": "^4.1",
-        "katzgrau/klogger": "dev-master"
+        "katzgrau/klogger": "dev-master",
+        "twig/twig": "^2.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.1",

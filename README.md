@@ -24,3 +24,6 @@ Available commands:
   todo:list    List all todos
   todo:update  Update status of the selected todo.
 ```
+
+## Authors
+* **Adam Prancz** - *Initial work* - [Praad](https://github.com/praad/)

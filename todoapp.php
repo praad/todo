@@ -21,10 +21,34 @@ if (file_exists($file)) {
 // Create a logger object:
 $logger = null;
 if (getenv('LOG')) {
-    $logdir = (getenv('LOGDIR')) ?: 'log';
-    $logger = new Logger($logdir, Psr\Log\LogLevel::INFO, [
+    $logDir = (getenv('LOGDIR')) ?: 'log';
+    $logger = new Logger($logDir, Psr\Log\LogLevel::INFO, [
         'extension' => 'log',
     ]);
+}
+
+// Create a log file HTML viewer by Twig:
+if ($logger) {
+    $loader = new Twig_Loader_Filesystem('src/View');
+    $twig = new Twig_Environment($loader, ['debug' => true]);
+    $twig->addExtension(new Twig_Extension_Debug());
+
+    $logFiles = [];
+    $i = 0;
+
+    foreach (glob($logDir.'/*.log') as $logFile) {
+        $logFiles[$i]['file'] = $logFile;
+        $logFiles[$i]['content'] = formatLog(file_get_contents($logFile));
+        ++$i;
+    }
+
+    $page = $twig->render('index.html.twig', [
+        'logDir' => $logDir,
+        'logFiles' => $logFiles,
+    ]);
+
+    //dd($logDir, $logFiles);
+    file_put_contents('index.html', $page);
 }
 
 // Create the application:
@@ -37,3 +61,14 @@ foreach (glob('src/Command/*') as $command) {
 }
 
 $app->run();
+
+function formatLog($text)
+{
+    // Replacing new line characters:
+    $html = preg_replace("/\r\n|\r|\n/", '<br/>', $text);
+
+    $html = str_replace('[error]', '<span style="color: red;">[error]</span>', $html);
+    $html = str_replace('[info]', '<span style="color: green;">[info]</span>', $html);
+
+    return "<pre>$html</pre>";
+}
