@@ -46,5 +46,6 @@ class TodoCreateCommand extends SymfonyCommand
         $todo->setStatus(strtoupper($input->getArgument('status')));
         $todo->description = $input->getArgument('description');
         $todo->save();
+        $todo->list();
     }
 }

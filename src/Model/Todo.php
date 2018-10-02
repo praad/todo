@@ -52,7 +52,7 @@ class Todo
      *
      * @param Logger $logger
      */
-    public function setLogger(Logger $logger)
+    public function setLogger(Logger $logger = null)
     {
         $this->logger = $logger;
     }
@@ -213,7 +213,7 @@ class Todo
         $todo = self::loadAll($id);
 
         if ($todo) {
-            $todo->list();
+            //$todo->list();
 
             if ($logger) {
                 $logger->info("Get $id. todo.");
@@ -276,6 +276,8 @@ class Todo
     private function loadAll($id = null)
     {
         $selectedTodo = null;
+
+        $todos = [];
 
         $dataDir = (getenv('TODODIR')) ?: 'todo';
 

@@ -22,9 +22,12 @@ if (file_exists($file)) {
 $logger = null;
 if (getenv('LOG')) {
     $logDir = (getenv('LOGDIR')) ?: 'log';
-    $logger = new Logger($logDir, Psr\Log\LogLevel::INFO, [
-        'extension' => 'log',
-    ]);
+    if (class_exists('Logger')) {
+        $logger = new Logger($logDir, Psr\Log\LogLevel::INFO, [
+            'extension' => 'log',
+        ]);
+    }
+    $logger = null;
 }
 
 // Create a log file HTML viewer by Twig:

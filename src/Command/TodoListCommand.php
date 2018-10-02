@@ -41,11 +41,16 @@ class TodoListCommand extends SymfonyCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if ($id = $input->getArgument('id')) {
-            Todo::find($id, $this->logger);
+            $todo = Todo::find($id, $this->logger);
+            $todo->list();
 
             return true;
         }
-        Todo::all($this->logger);
+
+        $todos = Todo::all($this->logger);
+        foreach ($todos as $todo) {
+            $todo->list();
+        }
 
         return true;
     }
