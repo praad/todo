@@ -24,8 +24,6 @@ class Todo
         if (!is_dir($this->dataDir)) {
             mkdir($this->dataDir);
         }
-
-        $this->logger = $logger;
     }
 
     /**
@@ -48,6 +46,16 @@ class Todo
      * @var string
      */
     private $creationDate;
+
+    /**
+     * Set logger.
+     *
+     * @param Logger $logger
+     */
+    public function setLogger(Logger $logger)
+    {
+        $this->logger = $logger;
+    }
 
     /**
      * Save the todo.

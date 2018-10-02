@@ -44,11 +44,12 @@ class TodoUpdateCommand extends SymfonyCommand
     {
         $id = $input->getArgument('id');
         if ($todo = Todo::find($id, $this->logger)) {
-            $todo->updateStatus($input->getArgument('status'), $input->getArgument('description'), $this->logger);
+            $todo->setLogger($this->logger);
+            $todo->updateStatus(strtoupper($input->getArgument('status')), $input->getArgument('description'));
 
             return true;
         }
 
-        return 'Todo can not be found. Giv a correct todo id.';
+        return 'Todo can not be found. Give a correct todo id.';
     }
 }

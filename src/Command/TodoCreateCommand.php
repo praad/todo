@@ -41,8 +41,9 @@ class TodoCreateCommand extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $todo = new Todo($this->logger);
-        $todo->setStatus($input->getArgument('status'));
+        $todo = new Todo();
+        $todo->setLogger($this->logger);
+        $todo->setStatus(strtoupper($input->getArgument('status')));
         $todo->description = $input->getArgument('description');
         $todo->save();
     }
