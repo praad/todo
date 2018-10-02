@@ -41,7 +41,7 @@ function checkstyle {
 # Run php mess detector
 function mess_detector {
     echo -e 'Running mess detector...\c'
-    if [ -e x.txt ]
+    if [ -e phpmd.xml ]
     then
         vendor/phpmd/phpmd/src/bin/phpmd src text phpmd.xml  > /dev/null
     else
