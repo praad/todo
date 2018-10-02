@@ -23,11 +23,11 @@ function lint {
 function git_checker {
     echo -e 'Checking working directory...\c'
     if [ -n "$(git status --porcelain)" ]; then
-      echo -e "\e[31mPlease commit/stash your changes first!\e[0m\n"
+      echo -e "\x1B[31mPlease commit/stash your changes first!\x1B[0m\n"
       mplayer support/git/sad-trompone.mp3 > /dev/null 2>&1
       exit 1
     else
-      echo -e "\e[32mClean!\e[0m\n"
+      echo -e "\x1B[32mClean!\x1B[0m\n"
     fi
 }
 
@@ -45,7 +45,7 @@ function mess_detector {
     then
         vendor/phpmd/phpmd/src/bin/phpmd src text phpmd.xml  > /dev/null
     else
-        vendor/phpmd/phpmd/src/bin/phpmd src text cleancode,naming,controversial,design --suffixes php,phtml  > /dev/null
+        vendor/phpmd/phpmd/src/bin/phpmd src text cleancode,naming,controversial,design --suffixes php,phtml 
     fi
     
     check $?
@@ -68,11 +68,11 @@ function check {
 }
 
 function pass {
-    echo -e "\e[32mPassed!\e[0m\n"
+    echo -e "\x1B[32mPassed!\x1B[0m\n"
 }
 
 function failed {
-    echo -e "\e[31mFailed!\e[0m\n"
+    echo -e "\x1B[31mFailed!\x1B[0m\n"
     mplayer support/git/sad-trompone.mp3  > /dev/null &
     exit 1
 }
