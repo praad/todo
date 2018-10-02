@@ -17,7 +17,7 @@ class Todo
 
     protected $logger;
 
-    public function __construct(Logger $logger = null)
+    public function __construct()
     {
         // Check if the DATADIR is exists or not and create it if neccessary:
         $this->dataDir = (getenv('TODODIR')) ?: 'todo';

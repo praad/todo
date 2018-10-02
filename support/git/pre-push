@@ -41,7 +41,13 @@ function checkstyle {
 # Run php mess detector
 function mess_detector {
     echo -e 'Running mess detector...\c'
-    vendor/phpmd/phpmd/src/bin/phpmd src text cleancode,naming,controversial,design --suffixes php,phtml  > /dev/null
+    if [ -e x.txt ]
+    then
+        vendor/phpmd/phpmd/src/bin/phpmd src text phpmd.xml  > /dev/null
+    else
+        vendor/phpmd/phpmd/src/bin/phpmd src text cleancode,naming,controversial,design --suffixes php,phtml  > /dev/null
+    fi
+    
     check $?
 }
 
