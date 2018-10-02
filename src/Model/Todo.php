@@ -72,11 +72,11 @@ class Todo
             // Serialize the todo object
             $todo = serialize($this);
 
-            file_put_contents($this->dataDir.'/'.$filename, $todo);
+            file_put_contents($this->dataDir.DIRECTORY_SEPARATOR.$filename, $todo);
 
             $this->setId($filename);
 
-            $this->list();
+            //$this->list();
             echo "The todo is saved successfully. \n";
 
             if ($this->logger) {
@@ -190,9 +190,11 @@ class Todo
             return false;
         }
 
+        /*
         foreach ($todos as $todo) {
             $todo->list();
         }
+        */
 
         if ($logger) {
             $logger->info('Get all todos.');
@@ -254,7 +256,7 @@ class Todo
     private function getLastId()
     {
         $todos = [];
-        foreach (glob($this->dataDir.'/*') as $todo) {
+        foreach (glob($this->dataDir.DIRECTORY_SEPARATOR.'*') as $todo) {
             $todo = unserialize(file_get_contents($todo));
             $todos[] = $todo->id;
         }
@@ -277,7 +279,7 @@ class Todo
 
         $dataDir = (getenv('TODODIR')) ?: 'todo';
 
-        foreach (glob($dataDir.'/*') as $file) {
+        foreach (glob($dataDir.DIRECTORY_SEPARATOR.'*') as $file) {
             $todo = unserialize(file_get_contents($file));
             if ($id) {
                 if ($todo->id == $id) {
@@ -341,6 +343,18 @@ class Todo
         if ($logger) {
             $logger->error($this->getId()." todo not valid change of the status: 
                 $oldStatus -> $status, $this->description");
+        }
+
+        return false;
+    }
+
+    /**
+     * Delete the todo.
+     */
+    public function delete()
+    {
+        if (unlink($this->dataDir.DIRECTORY_SEPARATOR.$this->getId())) {
+            return true;
         }
 
         return false;

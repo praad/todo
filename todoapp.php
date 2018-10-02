@@ -12,7 +12,7 @@ use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Console\Application;
 
 // Load application .env config file:
-$file = __DIR__.'/.env';
+$file = __DIR__.DIRECTORY_SEPARATOR.'.env';
 if (file_exists($file)) {
     $dotenv = new Dotenv();
     $dotenv->load($file);
@@ -29,14 +29,14 @@ if (getenv('LOG')) {
 
 // Create a log file HTML viewer by Twig:
 if ($logger) {
-    $loader = new Twig_Loader_Filesystem('src/View');
+    $loader = new Twig_Loader_Filesystem('src'.DIRECTORY_SEPARATOR.'View');
     $twig = new Twig_Environment($loader, ['debug' => true]);
     $twig->addExtension(new Twig_Extension_Debug());
 
     $logFiles = [];
     $i = 0;
 
-    foreach (glob($logDir.'/*.log') as $logFile) {
+    foreach (glob($logDir.DIRECTORY_SEPARATOR.'*.log') as $logFile) {
         $logFiles[$i]['file'] = $logFile;
         $logFiles[$i]['content'] = formatLog(file_get_contents($logFile));
         ++$i;
@@ -47,7 +47,6 @@ if ($logger) {
         'logFiles' => $logFiles,
     ]);
 
-    //dd($logDir, $logFiles);
     file_put_contents('index.html', $page);
 }
 
@@ -55,7 +54,7 @@ if ($logger) {
 $app = new Application('TodoApp', '1.0 (stable)');
 
 // Register all commands from src/Commands directory:
-foreach (glob('src/Command/*') as $command) {
+foreach (glob('src'.DIRECTORY_SEPARATOR.'Command'.DIRECTORY_SEPARATOR.'*') as $command) {
     $class = 'Console\Command\\'.pathinfo($command)['filename'];
     $app->add(new $class($logger));
 }

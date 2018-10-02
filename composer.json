@@ -4,6 +4,7 @@
     "description": "Simple Symfony 4 console component based todo app.",
     "keywords": ["todo", "Symfony 4", "Console"],
     "homepage": "https://adamprancz.com",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Adam Prancz",
@@ -19,9 +20,9 @@
     },
     "require-dev": {
         "symfony/var-dumper": "^4.1",
-        "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.3",
-        "phpmd/phpmd": "@stable"
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "^7.4@dev"
     },
     "suggest": {
         "katzgrau/klogger": "dev-master"
