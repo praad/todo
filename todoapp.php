@@ -27,7 +27,6 @@ if (getenv('LOG')) {
             'extension' => 'log',
         ]);
     }
-    $logger = null;
 }
 
 // Create a log file HTML viewer by Twig:
