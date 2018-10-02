@@ -34,7 +34,7 @@ class Todo
     public static $legalStatus = ['NEW', 'INPROGRESS', 'ONHOLD', 'DONE'];
 
     /**
-     * $tatus the status of the Todo.
+     * $status the status of the Todo.
      *
      * @var string NEW|INPROGRESS|ONHOLD|DONE
      */
